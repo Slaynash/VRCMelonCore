@@ -1,5 +1,5 @@
 # VRCMelonCore
-A Coremod for VRChat on MelonLoader
+CoreMod of MelonLoader for VRChat
 
 Current features:
 ---
