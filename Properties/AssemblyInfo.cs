@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("VRCMelonCore")]
-[assembly: AssemblyDescription("CoreMod of MelonLoader for VRChat ")]
+[assembly: AssemblyDescription("CoreMod of MelonLoader for VRChat")]
 [assembly: AssemblyCompany("VRChat Modding Group")]
 [assembly: AssemblyProduct("VRCMelonCore")]
 [assembly: AssemblyCopyright("Copyright © Slaynash 2018-2020")]

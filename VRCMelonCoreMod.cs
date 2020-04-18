@@ -61,19 +61,40 @@ namespace VRCMelonCore
                 SceneManager.LoadScene("ui", LoadSceneMode.Single);
             }
 
+            MelonModLogger.Log("Waiting for VRCUiManager...");
             // Wait for VRCUiManager to load
             while (VRCUiManager.field_VRCUiManager_0 == null)
                 yield return null;
 
+            MelonModLogger.Log("Testing routine 1");
+            yield return TestCoroutine();
+
+            MelonModLogger.Log("Testing routine 2");
+            Queue<IEnumerator> q = new Queue<IEnumerator>();
+            q.Enqueue(TestCoroutine());
+            yield return q.Dequeue();
+
+            MelonModLogger.Log("Processing pre-FlowManager routines");
             // Process all sheduled actions before flow Manager init
             while (preFlowManagerQueue.Count > 0)
+            {
+                MelonModLogger.Log("Remaining routines in queue: " + preFlowManagerQueue.Count);
                 yield return preFlowManagerQueue.Dequeue();
+            }
 
+            MelonModLogger.Log("Done! Starting game");
             preFlowManagerProcessed = true;
 
             // Enable VRCFlowManager back, and start the routine
             flowManager.enabled = true;
             flowManager.Start();
+        }
+
+        private IEnumerator TestCoroutine()
+        {
+            MelonModLogger.Log("1");
+            yield return null;
+            MelonModLogger.Log("2");
         }
     }
 }

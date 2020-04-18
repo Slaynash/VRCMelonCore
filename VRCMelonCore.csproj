@@ -54,10 +54,18 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\jeux\Steam\SteamApps\common\VRChat\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\jeux\Steam\SteamApps\common\VRChat\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\InputFieldValidatorExtension.cs" />
+    <Compile Include="Extensions\QuickMenuExtension.cs" />
+    <Compile Include="Extensions\VRCUiManagerExtension.cs" />
     <Compile Include="VRCMelonCoreMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extensions\VRCUiPopupManagerExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
