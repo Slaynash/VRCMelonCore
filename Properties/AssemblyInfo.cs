@@ -1,6 +1,7 @@
 ﻿using MelonLoader;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using VRCMelonCore;
 
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
@@ -32,5 +33,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyFileVersion("0.1.0.0")]
 
-[assembly: MelonModInfo("VRCMelonCore", "0.1.0", "Slaynash")]
+[assembly: MelonModInfo(typeof(VRCMelonCoreMod), "VRCMelonCore", "0.1.0", "Slaynash")]
 [assembly: MelonModGame("VRChat", "VRChat")]

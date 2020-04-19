@@ -1,12 +1,15 @@
-﻿using MelonLoader;
+﻿using Il2CppSystem.Reflection;
+using MelonLoader;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnhollowerBaseLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VRC.Core;
 
 namespace VRCMelonCore
 {
@@ -30,7 +33,7 @@ namespace VRCMelonCore
 
 
 
-        private void OnApplicationStart()
+        public override void OnApplicationStart()
         {
             MelonCoroutines.Start(ProcessRunBeforeFlowManager());
         }
@@ -44,15 +47,14 @@ namespace VRCMelonCore
             // Discard if there is nothing queued
             if(preFlowManagerQueue.Count == 0)
             {
-                MelonModLogger.LogError("Discarting BeforeFlowManager process, since there is no queued methods.");
+                MelonModLogger.LogError("Discarting PreFlowManager process, since there is no queued methods.");
                 preFlowManagerProcessed = true;
                 yield break;
             }
 
             // Get VRCFlowManagerVRC and disable it, plus stop all running coroutine
-            VRCFlowManager flowManager = VRCFlowManager.field_VRCFlowManager_0;
+            VRCFlowManagerVRC flowManager = VRCFlowManagerVRC.field_VRCFlowManager_0.Cast<VRCFlowManagerVRC>();
             flowManager.StopAllCoroutines();
-            flowManager.enabled = false;
 
             // Load the 'Ui' scene
             if (GameObject.Find("UserInterface") == null)
@@ -66,14 +68,6 @@ namespace VRCMelonCore
             while (VRCUiManager.field_VRCUiManager_0 == null)
                 yield return null;
 
-            MelonModLogger.Log("Testing routine 1");
-            yield return TestCoroutine();
-
-            MelonModLogger.Log("Testing routine 2");
-            Queue<IEnumerator> q = new Queue<IEnumerator>();
-            q.Enqueue(TestCoroutine());
-            yield return q.Dequeue();
-
             MelonModLogger.Log("Processing pre-FlowManager routines");
             // Process all sheduled actions before flow Manager init
             while (preFlowManagerQueue.Count > 0)
@@ -85,16 +79,17 @@ namespace VRCMelonCore
             MelonModLogger.Log("Done! Starting game");
             preFlowManagerProcessed = true;
 
-            // Enable VRCFlowManager back, and start the routine
-            flowManager.enabled = true;
-            flowManager.Start();
-        }
+            // Start the VRCFlowManagerVRC Coroutine
+            Type[] types = typeof(VRCFlowManagerVRC).GetNestedTypes().Where(t => t.GetMethod("MoveNext") != null).ToArray();
+            Type vrcFlowManagerEnumeratorType = types[0].GetProperties().Length > types[1].GetProperties().Length ? types[1] : types[0];
+            System.Reflection.ConstructorInfo constructor = vrcFlowManagerEnumeratorType.GetConstructor(new Type[] { typeof(int) });
+            object o = constructor.Invoke(new object[] { 0 });
+            MelonModLogger.Log("Instanciated object: " + o);
+            o.GetType().GetProperty("field_Il2CppStructArray_1_Nested0_0").SetValue(o, (Il2CppStructArray<VRCFlowManager.Nested0>) new VRCFlowManager.Nested0[] { VRCFlowManager.Nested0.ShowUI });
+            o.GetType().GetProperty("field_VRCFlowManagerVRC_0").SetValue(o, flowManager);
+            flowManager.StartCoroutine(((Il2CppSystem.Object)o).Cast<Il2CppSystem.Collections.IEnumerator>());
 
-        private IEnumerator TestCoroutine()
-        {
-            MelonModLogger.Log("1");
-            yield return null;
-            MelonModLogger.Log("2");
+            MelonModLogger.Log("FlowManager coroutine started");
         }
     }
 }
