@@ -53,7 +53,7 @@ namespace VRCMelonCore
             }
 
             // Get VRCFlowManagerVRC and disable it, plus stop all running coroutine
-            VRCFlowManagerVRC flowManager = VRCFlowManagerVRC.field_VRCFlowManager_0.Cast<VRCFlowManagerVRC>();
+            VRCFlowManagerVRC flowManager = VRCFlowManagerVRC.field_Private_VRCFlowManager_0.Cast<VRCFlowManagerVRC>();
             flowManager.StopAllCoroutines();
 
             // Load the 'Ui' scene
@@ -65,14 +65,14 @@ namespace VRCMelonCore
 
             MelonModLogger.Log("Waiting for VRCUiManager...");
             // Wait for VRCUiManager to load
-            while (VRCUiManager.field_VRCUiManager_0 == null)
+            while (VRCUiManager.field_Protected_VRCUiManager_0 == null)
                 yield return null;
 
             MelonModLogger.Log("Processing pre-FlowManager routines");
             // Process all sheduled actions before flow Manager init
             while (preFlowManagerQueue.Count > 0)
             {
-                MelonModLogger.Log("Remaining routines in queue: " + preFlowManagerQueue.Count);
+                MelonModLogger.Log("Remaining coroutines in queue: " + preFlowManagerQueue.Count);
                 yield return preFlowManagerQueue.Dequeue();
             }
 
@@ -84,9 +84,8 @@ namespace VRCMelonCore
             Type vrcFlowManagerEnumeratorType = types[0].GetProperties().Length > types[1].GetProperties().Length ? types[1] : types[0];
             System.Reflection.ConstructorInfo constructor = vrcFlowManagerEnumeratorType.GetConstructor(new Type[] { typeof(int) });
             object o = constructor.Invoke(new object[] { 0 });
-            MelonModLogger.Log("Instanciated object: " + o);
-            o.GetType().GetProperty("field_Il2CppStructArray_1_Nested0_0").SetValue(o, (Il2CppStructArray<VRCFlowManager.Nested0>) new VRCFlowManager.Nested0[] { VRCFlowManager.Nested0.ShowUI });
-            o.GetType().GetProperty("field_VRCFlowManagerVRC_0").SetValue(o, flowManager);
+            o.GetType().GetProperty("field_Public_ArrayOf_Nested0_0").SetValue(o, (Il2CppStructArray<VRCFlowManager.Nested0>) new VRCFlowManager.Nested0[] { VRCFlowManager.Nested0.ShowUI });
+            o.GetType().GetProperty("field_Public_VRCFlowManagerVRC_0").SetValue(o, flowManager);
             flowManager.StartCoroutine(((Il2CppSystem.Object)o).Cast<Il2CppSystem.Collections.IEnumerator>());
 
             MelonModLogger.Log("FlowManager coroutine started");

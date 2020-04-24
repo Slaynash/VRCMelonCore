@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="Extensions\InputFieldValidatorExtension.cs" />
     <Compile Include="Extensions\QuickMenuExtension.cs" />
+    <Compile Include="Extensions\UnityEngine\ImageConversion.cs" />
+    <Compile Include="Extensions\UnityEngine\Sprite.cs" />
     <Compile Include="Extensions\VRCUiManagerExtension.cs" />
     <Compile Include="VRCMelonCoreMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

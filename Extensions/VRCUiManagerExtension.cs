@@ -11,7 +11,7 @@ namespace VRCMelonCore.Extensions
     {
         public static void ShowScreen(this VRCUiManager vrcUiManager, string screen, bool additive = false)
         {
-            vrcUiManager.Method_Public_String_Boolean_0(screen, additive);
+            vrcUiManager.Method_Public_Void_String_Boolean_0(screen, additive);
         }
         /*
         public static void ShowUi(this VRCUiManager vrcUiManager, bool _1 = true, bool _2 = true)

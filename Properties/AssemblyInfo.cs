@@ -10,7 +10,7 @@ using VRCMelonCore;
 [assembly: AssemblyDescription("CoreMod of MelonLoader for VRChat")]
 [assembly: AssemblyCompany("VRChat Modding Group")]
 [assembly: AssemblyProduct("VRCMelonCore")]
-[assembly: AssemblyCopyright("Copyright © Slaynash 2018-2020")]
+[assembly: AssemblyCopyright("Copyright © Slaynash 2020")]
 
 // L'affectation de la valeur false à ComVisible rend les types invisibles dans cet assembly
 // aux composants COM. Si vous devez accéder à un type dans cet assembly à partir de
